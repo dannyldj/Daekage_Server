@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Daekage_Server.Models
+﻿namespace Daekage_Server.Models
 {
     public class DaekageDatabaseSettings : IDaekageDatabaseSettings
     {
