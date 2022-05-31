@@ -7,6 +7,8 @@
         public string DatabaseName { get; set; } = null!;
 
         public string NoticesCollectionName { get; set; } = null!;
+
+        public string AuthCollectionName { get; set; } = null!;
     }
 
     public interface IDaekageDatabaseSettings
@@ -16,5 +18,7 @@
         string DatabaseName { get; set; }
 
         string NoticesCollectionName { get; set; }
+
+        string AuthCollectionName { get; set; }
     }
 }

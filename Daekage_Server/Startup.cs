@@ -27,6 +27,7 @@ namespace Daekage_Server
             services.AddSingleton<IDaekageDatabaseSettings>(sp =>
                 sp.GetRequiredService<IOptions<DaekageDatabaseSettings>>().Value);
 
+            services.AddSingleton<AuthService>();
             services.AddSingleton<NoticeService>();
 
             services.AddControllers().AddNewtonsoftJson(options => options.UseMemberCasing());
