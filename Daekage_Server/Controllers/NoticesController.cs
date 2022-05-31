@@ -9,10 +9,12 @@ namespace Daekage_Server.Controllers
     [ApiController]
     public class NoticesController : ControllerBase
     {
+        private readonly AuthService _authService;
         private readonly NoticeService _noticeService;
 
-        public NoticesController(NoticeService noticeService)
+        public NoticesController(AuthService authService, NoticeService noticeService)
         {
+            _authService = authService;
             _noticeService = noticeService;
         }
 
@@ -36,6 +38,9 @@ namespace Daekage_Server.Controllers
         [HttpPost]
         public ActionResult<Notice> Create(Notice notice)
         {
+            if (_authService.Get(notice.Sender) is null)
+                return Unauthorized();
+
             _noticeService.Create(notice);
 
             return CreatedAtRoute("GetNotice", new { id = notice.Id }, notice);
@@ -49,9 +54,13 @@ namespace Daekage_Server.Controllers
                 return NotFound();
             }
 
+            if (_noticeService.Get(id).Sender != noticeIn.Sender)
+                return Unauthorized();
+
             _noticeService.Update(id, noticeIn);
 
             return NoContent();
+
         }
 
         [HttpDelete("{id:length(24)}")]

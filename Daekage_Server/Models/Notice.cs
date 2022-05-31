@@ -19,5 +19,7 @@ namespace Daekage_Server.Models
         public List<string> Files { get; set; }
 
         public string Text { get; set; }
+
+        public string Sender { get; set; }
     }
 }
