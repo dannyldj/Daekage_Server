@@ -30,9 +30,6 @@ namespace Daekage_Server.Services
         public void Update(string id, Notice noticeIn) =>
             _notices.ReplaceOne(notice => notice.Id == id, noticeIn);
 
-        public void Remove(Notice noticeIn) =>
-            _notices.DeleteOne(notice => notice.Id == noticeIn.Id);
-
         public void Remove(string id) =>
             _notices.DeleteOne(notice => notice.Id == id);
     }

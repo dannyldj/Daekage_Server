@@ -36,7 +36,7 @@ namespace Daekage_Server.Controllers
         }
 
         [HttpPost]
-        public ActionResult<Notice> Create(Notice notice)
+        public ActionResult<Notice> Create([FromBody] Notice notice)
         {
             if (_authService.Get(notice.Sender) is null)
                 return Unauthorized();
@@ -47,7 +47,7 @@ namespace Daekage_Server.Controllers
         }
 
         [HttpPut("{id:length(24)}")]
-        public IActionResult Update(string id, Notice noticeIn)
+        public IActionResult Update(string id, [FromBody] Notice noticeIn)
         {
             if (_noticeService.Get(id) == null)
             {

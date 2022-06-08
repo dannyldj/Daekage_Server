@@ -27,5 +27,8 @@ namespace Daekage_Server.Services
             _teachers.InsertOne(teacher);
             return teacher;
         }
+
+        public void Remove(string email) =>
+            _teachers.DeleteOne(teacher => teacher.Email == email);
     }
 }

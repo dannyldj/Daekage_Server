@@ -15,7 +15,7 @@ namespace Daekage_Server.Controllers
             _authService = authService;
         }
 
-        [HttpGet(Name = "GetTeacher")]
+        [HttpGet("{email}", Name = "GetTeacher")]
         public ActionResult<Teacher> Get(string email)
         {
             var notice = _authService.Get(email);
@@ -29,11 +29,23 @@ namespace Daekage_Server.Controllers
         }
 
         [HttpPost]
-        public ActionResult<Teacher> Create(Teacher teacher)
+        public ActionResult<Teacher> Create([FromBody] Teacher teacher)
         {
-            _authService.Create(teacher);
+            if(Get(teacher.Email).Value is null)
+                _authService.Create(teacher);
 
-            return CreatedAtRoute("GetTeacher", teacher);
+            return CreatedAtRoute("GetTeacher", new { email = teacher.Email }, teacher);
+        }
+
+        [HttpDelete("{email}")]
+        public IActionResult Delete(string email)
+        {
+            if (Get(email).Value is null)
+                return NotFound();
+
+            _authService.Remove(email);
+
+            return NoContent();
         }
     }
 }
